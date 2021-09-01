@@ -1,16 +1,12 @@
 # FNextCloud
-支持开通 暂停 解除暂停 终止 限制/更改配额(自定义字段,可配置选项,产品配置)
-客户界面可查看账户名密码登录地址已用配额总配额等信息
-前后台均可更改账户密码
-修改自ebsnextcloud
+Support opening suspension, lifting suspension, termination restriction/change quota (custom fields, configurable options, product configuration) The customer interface can view the account name, password, login address, used quota, total quota, and other information.
 
-安装说明:
+Installation Notes:
 
-1.上传到/modules/servers
+1. Upload to /modules/servers
 
-2.添加服务器时账号密码填写为nextcloud管理员账号密码,服务器详情中访问散列值填写为 ``` <serveraddress>http://NextCloud地址/</serveraddress> ```
+2. When adding a server, fill in the account password as the nextcloud administrator account password, and fill in the access hash value in the server details as <serveraddress>http://NextCloud地址/</serveraddress>
 
-3.添加产品测试
+3. Add product test
 
-说明:
-最大配额可使用自定义字段、可配置选项等自行定义,名称均为maxquota
+Note: The maximum quota can be self-defined using custom fields, configurable options, etc., and the names are all maxquota
