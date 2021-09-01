@@ -13,7 +13,7 @@ function fnextcloud_MetaData(){
 
 function fnextcloud_ConfigOptions(){
     return array(
-        '最大配额(Gb)' => array(
+        'Maximum quota(Gb)' => array(
             'Type' => 'text',
             'Size' => '500',
 			'Default' => '10'
@@ -30,7 +30,7 @@ function fnextcloud_CreateAccount($params){
 	}
 	$ServerAddress = explode('://',$ServerAddress);
 	if(count($ServerAddress) != 2){
-		return '服务器地址错误,请包含协议';
+		return 'Server address is wrong, please include the protocol';
 	}
 	$ServerAddress = $ServerAddress[0].'://'.urlencode($params['serverusername']).':'.urlencode($params['serverpassword']).'@'.$ServerAddress[1];
 	if(@$params['configoptions']['maxquota']){
@@ -59,7 +59,7 @@ function fnextcloud_CreateAccount($params){
         curl_close($CreateUserCurl);
 		$CreateUserRespArray = json_decode($CreateUserResp,true);
 		if($CreateUserRespArray['ocs']['meta']['status'] != 'ok'){
-			throw new Exception('创建账户失败['.$CreateUserRespArray['ocs']['meta']['message'].']');
+			throw new Exception('Failed to create account['.$CreateUserRespArray['ocs']['meta']['message'].']');
 		}
 		//Create User End
 		/**
@@ -74,7 +74,7 @@ function fnextcloud_CreateAccount($params){
         curl_close($UpdateEmailCurl);
 		$UpdateEmailRespArray = json_decode($UpdateEmailResp,true);
 		if($UpdateEmailRespArray['ocs']['meta']['status'] != 'ok'){
-			throw new Exception('设置账户邮箱失败['.$UpdateEmailRespArray['ocs']['meta']['message'].']');
+			throw new Exception('Failed to set account mailbox['.$UpdateEmailRespArray['ocs']['meta']['message'].']');
 		}
 		//Update Nextcloud account with user email End
 		**/
@@ -89,7 +89,7 @@ function fnextcloud_CreateAccount($params){
         curl_close($UpdateNameCurl);
 		$UpdateNameRespArray = json_decode($UpdateNameResp,true);
 		if($UpdateNameRespArray['ocs']['meta']['status'] != 'ok'){
-			throw new Exception('设置账户显示名失败['.$UpdateNameRespArray['ocs']['meta']['message'].']');
+			throw new Exception('Failed to set account display name['.$UpdateNameRespArray['ocs']['meta']['message'].']');
 		}
 		//Update Nextcloud account display name with user firstname End
         //Set Nextcloud Max quota Start
@@ -103,7 +103,7 @@ function fnextcloud_CreateAccount($params){
         curl_close($SetMaxQuotaCurl);
 		$SetMaxQuotaRespArray = json_decode($SetMaxQuotaResp,true);
 		if($SetMaxQuotaRespArray['ocs']['meta']['status'] != 'ok'){
-			throw new Exception('设置账户配额失败['.$SetMaxQuotaRespArray['ocs']['meta']['message'].']');
+			throw new Exception('Failed to set account quota['.$SetMaxQuotaRespArray['ocs']['meta']['message'].']');
 		}
 		//Set Nextcloud Max quota End
     }catch(Exception $e){
@@ -121,11 +121,11 @@ function fnextcloud_SuspendAccount($params){
 	}
 	$ServerAddress = explode('://',$ServerAddress);
 	if(count($ServerAddress) != 2){
-		return '服务器地址错误,请包含协议';
+		return 'Server address is wrong, please include the protocol';
 	}
 	$ServerAddress = $ServerAddress[0].'://'.urlencode($params['serverusername']).':'.urlencode($params['serverpassword']).'@'.$ServerAddress[1];
 	if(empty(trim($params['username']))){
-		return '用户名不能为空';
+		return 'Username cannot be empty';
 	}else{
 		$Username = $params['username'];
 	}
@@ -140,7 +140,7 @@ function fnextcloud_SuspendAccount($params){
         curl_close($DisableUserCurl);
 		$DisableUserRespArray = json_decode($DisableUserResp,true);
 		if($DisableUserRespArray['ocs']['meta']['status'] != 'ok'){
-			throw new Exception('禁用账户失败['.$DisableUserRespArray['ocs']['meta']['message'].']');
+			throw new Exception('The account could not be disabled['.$DisableUserRespArray['ocs']['meta']['message'].']');
 		}
 		//Disable User End
     }catch(Exception $e){
@@ -158,11 +158,11 @@ function fnextcloud_UnsuspendAccount($params){
 	}
 	$ServerAddress = explode('://',$ServerAddress);
 	if(count($ServerAddress) != 2){
-		return '服务器地址错误,请包含协议';
+		return 'The server address is incorrect, please include the protocol';
 	}
 	$ServerAddress = $ServerAddress[0].'://'.urlencode($params['serverusername']).':'.urlencode($params['serverpassword']).'@'.$ServerAddress[1];
 	if(empty(trim($params['username']))){
-		return '用户名不能为空';
+		return 'Username cannot be empty';
 	}else{
 		$Username = $params['username'];
 	}
@@ -177,7 +177,7 @@ function fnextcloud_UnsuspendAccount($params){
         curl_close($EnableUserCurl);
 		$EnableUserRespArray = json_decode($EnableUserResp,true);
 		if($EnableUserRespArray['ocs']['meta']['status'] != 'ok'){
-			throw new Exception('启用账户失败['.$EnableUserRespArray['ocs']['meta']['message'].']');
+			throw new Exception('The account could not be activated['.$EnableUserRespArray['ocs']['meta']['message'].']');
 		}
 		//Enable User End
     }catch(Exception $e){
@@ -195,11 +195,11 @@ function fnextcloud_TerminateAccount($params){
 	}
 	$ServerAddress = explode('://',$ServerAddress);
 	if(count($ServerAddress) != 2){
-		return '服务器地址错误,请包含协议';
+		return 'The server address is incorrect, please include the protocol';
 	}
 	$ServerAddress = $ServerAddress[0].'://'.urlencode($params['serverusername']).':'.urlencode($params['serverpassword']).'@'.$ServerAddress[1];
 	if(empty(trim($params['username']))){
-		return '用户名不能为空';
+		return 'Username cannot be empty';
 	}else{
 		$Username = $params['username'];
 	}
@@ -214,7 +214,7 @@ function fnextcloud_TerminateAccount($params){
         curl_close($DeleteUserCurl);
 		$DeleteUserRespArray = json_decode($DeleteUserResp,true);
 		if($DeleteUserRespArray['ocs']['meta']['status'] != 'ok'){
-			throw new Exception('删除账户失败['.$DeleteUserRespArray['ocs']['meta']['message'].']');
+			throw new Exception('The account could not be deleted['.$DeleteUserRespArray['ocs']['meta']['message'].']');
 		}
 		//Delete User End
     }catch(Exception $e){
@@ -232,11 +232,11 @@ function fnextcloud_ChangePassword($params){
 	}
 	$ServerAddress = explode('://',$ServerAddress);
 	if(count($ServerAddress) != 2){
-		return '服务器地址错误,请包含协议';
+		return 'The server address is incorrect, please include the protocol';
 	}
 	$ServerAddress = $ServerAddress[0].'://'.urlencode($params['serverusername']).':'.urlencode($params['serverpassword']).'@'.$ServerAddress[1];
 	if(empty(trim($params['username']))){
-		return '用户名不能为空';
+		return 'Username cannot be empty';
 	}else{
 		$Username = $params['username'];
 	}
@@ -252,7 +252,7 @@ function fnextcloud_ChangePassword($params){
         curl_close($ChangePasswordCurl);
 		$ChangePasswordRespArray = json_decode($ChangePasswordResp,true);
 		if($ChangePasswordRespArray['ocs']['meta']['status'] != 'ok'){
-			throw new Exception('修改账户密码失败['.$ChangePasswordRespArray['ocs']['meta']['message'].']');
+			throw new Exception('Failed to change account password['.$ChangePasswordRespArray['ocs']['meta']['message'].']');
 		}
 		//Change User Password End
     }catch(Exception $e){
@@ -263,7 +263,7 @@ function fnextcloud_ChangePassword($params){
 
 function fnextcloud_AdminCustomButtonArray(){
     return array(
-        "更新配额限制" => "MaxQuotaSync",
+        "Update quota limit" => "MaxQuotaSync",
     );
 }
 
@@ -276,11 +276,11 @@ function fnextcloud_MaxQuotaSync($params){
 	}
 	$ServerAddress = explode('://',$ServerAddress);
 	if(count($ServerAddress) != 2){
-		return '服务器地址错误,请包含协议';
+		return 'The server address is incorrect, please include the protocol';
 	}
 	$ServerAddress = $ServerAddress[0].'://'.urlencode($params['serverusername']).':'.urlencode($params['serverpassword']).'@'.$ServerAddress[1];
 	if(empty(trim($params['username']))){
-		return '用户名不能为空';
+		return 'Username cannot be empty';
 	}else{
 		$Username = $params['username'];
 	}
@@ -305,7 +305,7 @@ function fnextcloud_MaxQuotaSync($params){
         curl_close($SetMaxQuotaCurl);
 		$SetMaxQuotaRespArray = json_decode($SetMaxQuotaResp,true);
 		if($SetMaxQuotaRespArray['ocs']['meta']['status'] != 'ok'){
-			throw new Exception('设置账户配额失败['.$SetMaxQuotaRespArray['ocs']['meta']['message'].']');
+			throw new Exception('Failed to set account quota['.$SetMaxQuotaRespArray['ocs']['meta']['message'].']');
 		}
 		//Set Nextcloud Max quota End
     }catch(Exception $e){
@@ -325,11 +325,11 @@ function fnextcloud_ClientArea($params){
 	}
 	$ServerAddress = explode('://',$ServerAddressRaw);
 	if(count($ServerAddress) != 2){
-		return array('tabOverviewReplacementTemplate' => 'templates/error.tpl','templateVariables' => array('ErrorInfo' => '配置出现错误:服务器地址错误,请包含协议'));
+		return array('tabOverviewReplacementTemplate' => 'templates/error.tpl','templateVariables' => array('ErrorInfo' => 'Configuration error:The server address is incorrect, please include the protocol'));
 	}
 	$ServerAddress = $ServerAddress[0].'://'.urlencode($params['serverusername']).':'.urlencode($params['serverpassword']).'@'.$ServerAddress[1];
 	if(empty(trim($params['username']))){
-		return array('tabOverviewReplacementTemplate' => 'templates/error.tpl','templateVariables' => array('ErrorInfo' => '配置出现错误:用户名不能为空'));
+		return array('tabOverviewReplacementTemplate' => 'templates/error.tpl','templateVariables' => array('ErrorInfo' => 'Configuration error:Username cannot be empty'));
 	}else{
 		$Username = $params['username'];
 	}
@@ -344,7 +344,7 @@ function fnextcloud_ClientArea($params){
         curl_close($GetQuotaCurl);
 		$GetQuotaRespArray = json_decode($GetQuotaResp,true);
 		if($GetQuotaRespArray['ocs']['meta']['status'] != 'ok'){
-			throw new Exception('获取账户配额失败['.$GetQuotaRespArray['ocs']['meta']['message'].']');
+			throw new Exception('Failed to obtain account quota['.$GetQuotaRespArray['ocs']['meta']['message'].']');
 		}
 		$QuotaData['used'] = fnextcloud_convert_bytes_to_specified($GetQuotaRespArray['ocs']['data']['quota']['used'],'G',2);
 		$QuotaData['all'] = fnextcloud_convert_bytes_to_specified($GetQuotaRespArray['ocs']['data']['quota']['quota'],'G',2);
